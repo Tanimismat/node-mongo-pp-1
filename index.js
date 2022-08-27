@@ -26,9 +26,15 @@ const server = http.createServer(function (req, res) {
 			});
 			break;
 		case "/write":
-			res.writeHead(200, { "Content-Type": "text/html" });
-			res.write(`<p>Welcome to Full Stack Development.</p>`);
-			res.end();
+			fs.writeFile("second.txt", "I am a pull stack developer !!! ", (err) => {
+				if (err) {
+					res.write("Failed to write data!");
+					res.end();
+				} else {
+					res.write("Data written successfully!");
+					res.end();
+				}
+			});
 			break;
 		case "/append":
 			res.writeHead(200, { "Content-Type": "text/html" });
