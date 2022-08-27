@@ -37,6 +37,17 @@ const server = http.createServer(function (req, res) {
 			});
 			break;
 		case "/append":
+			fs.appendFile("first.txt", "No, it will be full not pull!", (err) => {
+				if (err) {
+					res.write("Failed to append data!");
+					res.end();
+				} else {
+					res.write("Data appended successfully!");
+					res.end();
+				}
+			});
+			break;
+		case "/delete":
 			res.writeHead(200, { "Content-Type": "text/html" });
 			res.write(`<p>Welcome to Full Stack Development.</p>`);
 			res.end();
