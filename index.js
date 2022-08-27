@@ -1,6 +1,7 @@
 const http = require("http");
 const colors = require("colors");
 const url = require("url");
+const fs = require("fs");
 
 // console.log(url);
 
@@ -13,13 +14,34 @@ const server = http.createServer(function (req, res) {
 			res.write(`<p>Welcome to Full Stack Development.</p>`);
 			res.end();
 			break;
-		case "/about":
-			res.writeHead(200, { "Content-Type": "text/json" });
-			res.write(JSON.stringify({ course: "ACC!!!" }));
+		case "/read":
+			fs.readFile("first.txt", (err, data) => {
+				if (err) {
+					res.write("Failed to read data!");
+					res.end();
+				} else {
+					res.write(data);
+					res.end();
+				}
+			});
+			break;
+		case "/write":
+			res.writeHead(200, { "Content-Type": "text/html" });
+			res.write(`<p>Welcome to Full Stack Development.</p>`);
 			res.end();
 			break;
-		default:
+		case "/append":
 			res.writeHead(200, { "Content-Type": "text/html" });
+			res.write(`<p>Welcome to Full Stack Development.</p>`);
+			res.end();
+			break;
+		// case "/about":
+		// 	res.writeHead(200, { "Content-Type": "text/json" });
+		// 	res.write(JSON.stringify({ course: "ACC!!!" }));
+		// 	res.end();
+		// 	break;
+		default:
+			res.writeHead(404, { "Content-Type": "text/html" });
 			res.write(`<p>Page not found</p>`);
 			res.end();
 	}
