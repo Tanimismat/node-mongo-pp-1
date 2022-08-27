@@ -48,9 +48,15 @@ const server = http.createServer(function (req, res) {
 			});
 			break;
 		case "/delete":
-			res.writeHead(200, { "Content-Type": "text/html" });
-			res.write(`<p>Welcome to Full Stack Development.</p>`);
-			res.end();
+			fs.unlink("second.txt", (err) => {
+				if (err) {
+					res.write("Failed to delete file!");
+					res.end();
+				} else {
+					res.write("File deleted successfully!");
+					res.end();
+				}
+			});
 			break;
 		// case "/about":
 		// 	res.writeHead(200, { "Content-Type": "text/json" });
