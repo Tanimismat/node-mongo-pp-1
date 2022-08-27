@@ -1,15 +1,21 @@
 const http = require("http");
 const colors = require("colors");
+const url = require("url");
 
-// console.log(http);
+// console.log(url);
 
 const server = http.createServer(function (req, res) {
-	console.log(req.url);
 	let path = req.url;
+	console.log(path);
 	switch (path) {
 		case "/":
 			res.writeHead(200, { "Content-Type": "text/html" });
 			res.write(`<p>Welcome to Full Stack Development.</p>`);
+			res.end();
+			break;
+		case "/about":
+			res.writeHead(200, { "Content-Type": "text/json" });
+			res.write(JSON.stringify({ course: "ACC!!!" }));
 			res.end();
 			break;
 		default:
@@ -20,6 +26,13 @@ const server = http.createServer(function (req, res) {
 	// res.writeHead(200, { "Content-Type": "text/html" });
 	// res.write(`<This is home page/>`);
 	// res.end();
+	const address = `https://localhost:5000/www.google.com/search?q=(https%3A%2F%2Fwww.tutorialsteacher.com%2Fnodejs%2Fnodejs-modules)&rlz=1C1GIWA_enBD1014BD1014&oq=(https%3A%2F%2Fwww.tutorialsteacher.com%2Fnodejs%2Fnodejs-modules)&aqs=chrome..69i57.687j0j9&sourceid=chrome&ie=UTF-8`;
+
+	const parsedURL = url.parse(address, true);
+	// console.log(parsedURL);
+
+	const queryObj = parsedURL.query;
+	console.log(queryObj);
 });
 server.listen(5000);
 console.log(colors.blue("Listening to the port"));
